@@ -34,6 +34,7 @@
       max-width: 600px;
     }
     .video {
+      position: relative;
       margin: 40px auto 60px;
       max-width: 800px;
       padding: 0 20px;
@@ -46,6 +47,23 @@
       border-radius: 12px;
       box-shadow: 0 10px 30px rgb(0 0 0 / 0.1);
       border: none;
+    }
+    #unmute-button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 25px;
+      font-weight: 700;
+      font-size: 1rem;
+      background: #f57c00;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(245, 124, 0, 0.7);
+      user-select: none;
+      z-index: 10;
     }
     section.benefits {
       max-width: 760px;
@@ -226,7 +244,14 @@
 
   <div class="video">
     <h2>Veja o sistema funcionando na prática</h2>
-    <iframe src="https://www.youtube.com/embed/9oSzd0VeVno" frameborder="0" allowfullscreen></iframe>
+    <iframe
+      id="promo-video"
+      src="https://www.youtube.com/embed/9oSzd0VeVno?autoplay=1&mute=1&enablejsapi=1"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+    ></iframe>
+    <button id="unmute-button">Ativar Som 🔊</button>
   </div>
 
   <section class="benefits">
@@ -264,6 +289,7 @@
   </footer>
 
   <script>
+    // Countdown do timer
     let time = 10 * 60;
     const timerElement = document.getElementById('timer');
     const cta = document.getElementById('cta');
@@ -283,6 +309,20 @@
 
     updateTimer();
     const countdownInterval = setInterval(updateTimer, 1000);
+
+    // Controle do vídeo YouTube para ativar som
+    const iframe = document.getElementById('promo-video');
+    const button = document.getElementById('unmute-button');
+
+    function postMessageToPlayer(command) {
+      iframe.contentWindow.postMessage(JSON.stringify(command), '*');
+    }
+
+    button.addEventListener('click', () => {
+      postMessageToPlayer({ event: 'command', func: 'unMute', args: [] });
+      postMessageToPlayer({ event: 'command', func: 'playVideo', args: [] });
+      button.style.display = 'none';
+    });
   </script>
 </body>
 </html>
