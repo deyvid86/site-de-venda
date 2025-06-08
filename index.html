@@ -68,6 +68,30 @@
       content: '✅';
       margin-right: 10px;
     }
+    .pricing {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 40px auto;
+      max-width: 800px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .pricing h2 {
+      font-size: 2rem;
+      color: #008060;
+      margin-bottom: 20px;
+    }
+    .pricing p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+    .countdown {
+      font-size: 1.5rem;
+      color: #d32f2f;
+      font-weight: bold;
+      margin-top: 20px;
+    }
     .cta {
       text-align: center;
       margin-top: 40px;
@@ -117,16 +141,45 @@
     </ul>
     <p><strong>✨ Ideal para comércios locais que querem vender mais e atender melhor!</strong></p>
     <p><strong>⏳ Não fique para trás da concorrência – tenha seu próprio sistema ainda hoje!</strong></p>
-    <p><strong>Ὃ0 Investimento único e sem mensalidade!</strong></p>
+  </section>
+
+  <section class="pricing">
+    <h2>Plano de Assinatura</h2>
+    <p><strong>Apenas R$ 80,00 por mês</strong></p>
+    <p><strong>Primeiro mês por apenas R$ 40,00 para você testar!</strong></p>
+    <p>Sem burocracia!!</p>
+    <div class="countdown" id="countdown">
+      Oferta especial termina em: <span id="timer">10:00</span>
+    </div>
   </section>
 
   <div class="cta">
     <p><strong>Pronto para começar a vender mais?</strong></p>
-    <a href="https://wa.me/seunumeroaqui" target="_blank">Fale agora pelo WhatsApp</a>
+    <a href="https://wa.me/5584986725871" target="_blank">Fale agora pelo WhatsApp</a>
   </div>
 
   <footer>
     <p>© 2025 - Sistema de Delivery Profissional. Todos os direitos reservados.</p>
   </footer>
+
+  <script>
+    let time = 10 * 60;
+    const timerElement = document.getElementById('timer');
+
+    function updateTimer() {
+      const minutes = Math.floor(time / 60);
+      const seconds = time % 60;
+      timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      if (time > 0) {
+        time--;
+      } else {
+        clearInterval(countdownInterval);
+        timerElement.textContent = 'Oferta Expirada';
+      }
+    }
+
+    updateTimer();
+    const countdownInterval = setInterval(updateTimer, 1000);
+  </script>
 </body>
 </html>
